@@ -9,7 +9,7 @@ namespace BibliotekSystem
     {
         internal static void AddUser(UserClass user)
         {
-            File.AppendAllText(@"\Users.txt",
+            File.AppendAllText(@"User.txt",
                 user.ID + "," + user.PN + "," + user.password + "\n");
         }
         internal static void RemoveUser(int idToRemove)
