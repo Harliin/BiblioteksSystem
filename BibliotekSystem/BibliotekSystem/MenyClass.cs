@@ -82,6 +82,7 @@ namespace BibliotekSystem
                     }
                 case '2':
                     {
+                        System.RemoveUser();
                         break;
                     }
                 case '3':
