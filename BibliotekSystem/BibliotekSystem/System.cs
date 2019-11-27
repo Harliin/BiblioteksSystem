@@ -21,7 +21,11 @@ namespace BibliotekSystem
 
         internal static void ShowUsers()
         {
-
+            var file = new List<string>(File.ReadAllLines(@"Users.txt"));
+            foreach (var item in file)
+            {
+                Console.WriteLine(item);
+            }
         }
         
     }
