@@ -7,7 +7,7 @@ namespace BibliotekSystem
     class MenyClass
     {
         List<UserClass> userList = new List<UserClass>();
-
+        List<BookClass> bookList = new List<BookClass>();
 
         public void MainMenu()
         {
@@ -63,8 +63,8 @@ namespace BibliotekSystem
         public void AdminUserMenu()
         {
             ClearConsole();
-            Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Ändra uppgifter på lånetagare\n[4]Gå tillbaka");
-            char key = Console.ReadKey().KeyChar;
+            Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Visa låntagare\n[4]Gå tillbaka");
+            char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
             {
@@ -72,19 +72,21 @@ namespace BibliotekSystem
                     {
                         Console.Write("Ange personnummer :");
                         string pn = Console.ReadLine();
-                        Console.WriteLine("Ange lösenord, fyra siffror");
-                        Console.Write("Ange lösenord:");
-                        string pw = PasswordChecker(Console.ReadLine());
-                        userList.Add(new UserClass(pn, pw));
+
+                        string pw = UserPasswordChecker();
+                        UserClass user = new UserClass(pn, pw);
+                        DataClass.AddUser(user);
                         AdminUserMenu();
                         break;
                     }
                 case '2':
                     {
+                        DataClass.RemoveUser();
                         break;
                     }
                 case '3':
                     {
+                        DataClass.ShowUsers();
                         break;
                     }
                 case '4':
@@ -108,28 +110,48 @@ namespace BibliotekSystem
             ClearConsole();
 
         }
-        public string PasswordChecker(string pw)
+        public string UserPasswordChecker()
         {
-            string password = "";
-            if (pw.Length < 4 && pw.Length > 4)
+            bool check = false;
+            string correctPassword = null;
+            int counter = 0;
+            do
             {
-                Console.WriteLine("Lösenorder måste vara fyra siffror.");
+                Console.Write("Ange lösenord, fyra siffror!: ");
+                string password = Console.ReadLine();
 
-            }
-            else
-            {
-                foreach (var item in pw)
+                if (password.Length == 4)
                 {
-                    for (int i = 48; i < 58; i++)
+                    foreach (var item in password)
                     {
-                        if (i == (int)item)
-                        {
-                            password += item;
+                        for (int i = 48; i < 58; i++)
+                        {                           
+                            if (i == (int)item)
+                            {
+                                correctPassword += item;
+                                counter++;
+                            }
                         }
                     }
+                    if (counter == 4)
+                    {
+                        check = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Fel format på lösenordet!");
+                        counter = 0;
+                    }
                 }
-            }
-            return password;
+                else
+                {
+                    Console.WriteLine("Lösenordet måste vara minst fyra siffror.");
+                    System.Threading.Thread.Sleep(600);
+
+                }
+            } while (check == false);
+            return correctPassword;
+
         }
         public void ClearConsole()
         {
