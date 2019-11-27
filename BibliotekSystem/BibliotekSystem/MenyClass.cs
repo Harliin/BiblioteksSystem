@@ -75,7 +75,9 @@ namespace BibliotekSystem
                         Console.WriteLine("Ange lösenord, fyra siffror");
                         Console.Write("Ange lösenord:");
                         string pw = PasswordChecker(Console.ReadLine());
-                        userList.Add(new UserClass(pn, pw));
+                        Console.Write("Ange Privilegie: ");
+                        int privilage = int.Parse(Console.ReadLine());
+                        userList.Add(new UserClass(pn, pw, privilage));
                         AdminUserMenu();
                         break;
                     }

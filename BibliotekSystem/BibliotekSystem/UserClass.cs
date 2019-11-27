@@ -17,7 +17,7 @@ namespace BibliotekSystem
 
         public UserClass(string pn, string password, int privilage)
         {
-            this.pn = pn;
+            this.PN = pn;
             this.password = password;
             this.Privilage = privilage;
 
