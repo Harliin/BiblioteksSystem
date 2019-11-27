@@ -63,7 +63,7 @@ namespace BibliotekSystem
         public void AdminUserMenu()
         {
             ClearConsole();
-            Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Ändra uppgifter på lånetagare\n[4]Gå tillbaka");
+            Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Visa låntagare\n[4]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
@@ -86,6 +86,7 @@ namespace BibliotekSystem
                     }
                 case '3':
                     {
+                        System.ShowUsers();
                         break;
                     }
                 case '4':
