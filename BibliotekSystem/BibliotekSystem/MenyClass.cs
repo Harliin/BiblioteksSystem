@@ -7,7 +7,7 @@ namespace BibliotekSystem
     class MenyClass
     {
         List<UserClass> userList = new List<UserClass>();
-
+        List<BookClass> bookList = new List<BookClass>();
 
         public void MainMenu()
         {
@@ -64,7 +64,7 @@ namespace BibliotekSystem
         {
             ClearConsole();
             Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Ändra uppgifter på lånetagare\n[4]Gå tillbaka");
-            char key = Console.ReadKey().KeyChar;
+            char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
             {
@@ -74,10 +74,8 @@ namespace BibliotekSystem
                         string pn = Console.ReadLine();
                         Console.WriteLine("Ange lösenord, fyra siffror");
                         Console.Write("Ange lösenord:");
-                        string pw = PasswordChecker(Console.ReadLine());
-                        Console.Write("Ange Privilegie: ");
-                        int privilage = int.Parse(Console.ReadLine());
-                        userList.Add(new UserClass(pn, pw, privilage));
+                        string pw = UserPasswordChecker(Console.ReadLine());
+                        userList.Add(new UserClass(pn,pw));
                         AdminUserMenu();
                         break;
                     }
@@ -110,7 +108,7 @@ namespace BibliotekSystem
             ClearConsole();
 
         }
-        public string PasswordChecker(string pw)
+        public string UserPasswordChecker(string pw)
         {
             bool check = false;
             string password = "";
@@ -122,10 +120,14 @@ namespace BibliotekSystem
                     {
                         for (int i = 48; i < 58; i++)
                         {
-                            if (i == (int)item)
+                            if((int)item != i)
+                            {
+                                Console.WriteLine("Använd endast siffror.");
+                                break;
+                            }
+                            else if (i == (int)item)
                             {
                                 password += item;
-
                             }
                         }
                     }
