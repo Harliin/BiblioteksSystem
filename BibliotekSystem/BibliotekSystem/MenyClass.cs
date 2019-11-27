@@ -14,7 +14,7 @@ namespace BibliotekSystem
             ClearConsole();
             Console.WriteLine("[1]Bibliotekarie\n[2]Lånetagare");
 
-            char key = Console.ReadKey().KeyChar;
+            char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
             {
@@ -36,7 +36,7 @@ namespace BibliotekSystem
         {
             ClearConsole();
             Console.WriteLine("[1]Hantera lånetagare\n[2]Hantera böcker\n[3]Gå tillbaka");
-            char key = Console.ReadKey().KeyChar;
+            char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
             {
