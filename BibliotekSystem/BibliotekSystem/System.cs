@@ -10,11 +10,13 @@ namespace BibliotekSystem
         internal static void AddUser(UserClass user)
         {
             File.AppendAllText(@"C:\Users\jonte\Documents\GitHub\BiblioteksSystem\BibliotekSystem\BibliotekSystem\Data\Users.txt",
-                user.ID + "," + user.PN + "," + user.Privilage + "," + user.password);
+                user.ID + "," + user.PN + "," + "," + user.password + "\n");
         }
-        internal static void RemoveUser()
+        internal static void RemoveUser(int idToRemove)
         {
-
+            var file = new List<string>(File.ReadAllLines(@"C:\Users\jonte\Documents\GitHub\BiblioteksSystem\BibliotekSystem\BibliotekSystem\Data\Users.txt"));
+            file.RemoveAt(idToRemove);
+            File.WriteAllLines(@"C:\Users\jonte\Documents\GitHub\BiblioteksSystem\BibliotekSystem\BibliotekSystem\Data\Users.txt", file.ToArray());
         }
 
         internal static void ShowUsers()
