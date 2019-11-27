@@ -12,10 +12,17 @@ namespace BibliotekSystem
             File.AppendAllText(@"Users.txt",
                 user.ID + "," + user.PN + "," + user.password + "\n");
         }
-        internal static void RemoveUser(int idToRemove)
+        internal static void RemoveUser()
         {
+            int rowId = 1;
             var file = new List<string>(File.ReadAllLines(@"Users.txt"));
-            file.RemoveAt(idToRemove);
+            foreach (var item in file)
+            {
+                Console.WriteLine($"Rad {rowId}: {item}");
+            }
+            Console.Write("Vem vill du ta bort? Ange rad nummer: ");
+            int row = int.Parse(Console.ReadLine());
+            file.RemoveAt(row - 1);
             File.WriteAllLines(@"Users.txt", file.ToArray());
         }
 
