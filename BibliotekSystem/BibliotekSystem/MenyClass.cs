@@ -110,26 +110,33 @@ namespace BibliotekSystem
         }
         public string PasswordChecker(string pw)
         {
+            bool check = false;
             string password = "";
-            if (pw.Length < 4 && pw.Length > 4)
+            do
             {
-                Console.WriteLine("Lösenorder måste vara fyra siffror.");
-
-            }
-            else
-            {
-                foreach (var item in pw)
+                if (pw.Length == 4)
                 {
-                    for (int i = 48; i < 58; i++)
+                    foreach (var item in pw)
                     {
-                        if (i == (int)item)
+                        for (int i = 48; i < 58; i++)
                         {
-                            password += item;
+                            if (i == (int)item)
+                            {
+                                password += item;
+
+                            }
                         }
                     }
+                    check = true;
                 }
-            }
-            return password;
+                else
+                {
+                    Console.WriteLine("Lösenordet måste vara minst fyra siffror.");
+                    Console.ReadKey();
+
+                }
+                return password;
+            } while (check == false);
         }
         public void ClearConsole()
         {
