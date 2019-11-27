@@ -20,6 +20,8 @@ namespace BibliotekSystem
 
             this.ID = _idCounter;
             _idCounter++;
+
+            
         }
     }
 }
