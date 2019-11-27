@@ -72,22 +72,21 @@ namespace BibliotekSystem
                     {
                         Console.Write("Ange personnummer :");
                         string pn = Console.ReadLine();
-                        Console.WriteLine("Ange lösenord, fyra siffror");
-                        Console.Write("Ange lösenord:");
+
                         string pw = UserPasswordChecker();
                         UserClass user = new UserClass(pn, pw);
-                        System.AddUser(user);
+                        DataClass.AddUser(user);
                         AdminUserMenu();
                         break;
                     }
                 case '2':
                     {
-                        System.RemoveUser();
+                        DataClass.RemoveUser();
                         break;
                     }
                 case '3':
                     {
-                        System.ShowUsers();
+                        DataClass.ShowUsers();
                         break;
                     }
                 case '4':
@@ -114,11 +113,11 @@ namespace BibliotekSystem
         public string UserPasswordChecker()
         {
             bool check = false;
-            string correctPassword = "";
+            string correctPassword = null;
             int counter = 0;
             do
             {
-                Console.WriteLine("Ange lösenord");
+                Console.Write("Ange lösenord, fyra siffror!: ");
                 string password = Console.ReadLine();
 
                 if (password.Length == 4)
@@ -130,15 +129,24 @@ namespace BibliotekSystem
                             if (i == (int)item)
                             {
                                 correctPassword += item;
+                                counter++;
                             }
                         }
                     }
-                    check = true;
+                    if (counter == 4)
+                    {
+                        check = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Fel format på lösenordet!");
+                        counter = 0;
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Lösenordet måste vara minst fyra siffror.");
-                    Console.ReadKey();
+                    System.Threading.Thread.Sleep(600);
 
                 }
             } while (check == false);

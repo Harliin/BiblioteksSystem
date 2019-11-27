@@ -5,12 +5,12 @@ using System.IO;
 
 namespace BibliotekSystem
 {
-    internal static class System
+    internal static class DataClass
     {
         internal static void AddUser(UserClass user)
         {
             File.AppendAllText(@"Users.txt",
-                user.ID + "," + user.PN + "," + user.password + "\n");
+                user.PN + "," + user.password + "\n");
         }
         internal static void RemoveUser()
         {
@@ -18,9 +18,10 @@ namespace BibliotekSystem
             var file = new List<string>(File.ReadAllLines(@"Users.txt"));
             foreach (var item in file)
             {
-                Console.WriteLine($"Rad {rowId}: {item}");
+                Console.WriteLine($"Lånetagare {rowId}: {item}");
+                rowId++;
             }
-            Console.Write("Vem vill du ta bort? Ange rad nummer: ");
+            Console.Write("Vem vill du ta bort? Ange låntagarens nummer: ");
             int row = int.Parse(Console.ReadLine());
             file.RemoveAt(row - 1);
             File.WriteAllLines(@"Users.txt", file.ToArray());
@@ -28,10 +29,12 @@ namespace BibliotekSystem
 
         internal static void ShowUsers()
         {
+            int rowId = 1;
             var file = new List<string>(File.ReadAllLines(@"Users.txt"));
             foreach (var item in file)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"Lånetagare {rowId}: {item}");
+                rowId++;
             }
         }
         
