@@ -4,7 +4,11 @@ using System.Text;
 
 namespace BibliotekSystem
 {
-    class Constrains
+    internal static class Constrains
     {
+        public static (bool, string) CheckUser()//Ska kolla usern om den uppfyller krav för ålder m.m.
+        {
+            return (true, " ");
+        }
     }
 }

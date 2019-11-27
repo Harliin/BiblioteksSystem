@@ -7,7 +7,7 @@ namespace BibliotekSystem
     class MenyClass
     {
         List<UserClass> userList = new List<UserClass>();
-
+        List<BookClass> bookList = new List<BookClass>();
 
         public void MainMenu()
         {
@@ -64,7 +64,7 @@ namespace BibliotekSystem
         {
             ClearConsole();
             Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Ändra uppgifter på lånetagare\n[4]Gå tillbaka");
-            char key = Console.ReadKey().KeyChar;
+            char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
             {
@@ -74,8 +74,9 @@ namespace BibliotekSystem
                         string pn = Console.ReadLine();
                         Console.WriteLine("Ange lösenord, fyra siffror");
                         Console.Write("Ange lösenord:");
-                        string pw = PasswordChecker(Console.ReadLine());
-                        userList.Add(new UserClass(pn, pw));
+                        string pw = UserPasswordChecker(Console.ReadLine());
+                        UserClass user = new UserClass(pn, pw);
+                        System.AddUser(user);
                         AdminUserMenu();
                         break;
                     }
@@ -108,28 +109,39 @@ namespace BibliotekSystem
             ClearConsole();
 
         }
-        public string PasswordChecker(string pw)
+        public string UserPasswordChecker(string pw)
         {
+            bool check = false;
             string password = "";
-            if (pw.Length < 4 && pw.Length > 4)
+            do
             {
-                Console.WriteLine("Lösenorder måste vara fyra siffror.");
-
-            }
-            else
-            {
-                foreach (var item in pw)
+                if (pw.Length == 4)
                 {
-                    for (int i = 48; i < 58; i++)
+                    foreach (var item in pw)
                     {
-                        if (i == (int)item)
+                        for (int i = 48; i < 58; i++)
                         {
-                            password += item;
+                            if((int)item != i)
+                            {
+                                Console.WriteLine("Använd endast siffror.");
+                                break;
+                            }
+                            else if (i == (int)item)
+                            {
+                                password += item;
+                            }
                         }
                     }
+                    check = true;
                 }
-            }
-            return password;
+                else
+                {
+                    Console.WriteLine("Lösenordet måste vara minst fyra siffror.");
+                    Console.ReadKey();
+
+                }
+                return password;
+            } while (check == false);
         }
         public void ClearConsole()
         {
