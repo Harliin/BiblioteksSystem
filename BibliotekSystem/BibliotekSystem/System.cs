@@ -9,19 +9,23 @@ namespace BibliotekSystem
     {
         internal static void AddUser(UserClass user)
         {
-            File.AppendAllText(@"User.txt",
+            File.AppendAllText(@"Users.txt",
                 user.ID + "," + user.PN + "," + user.password + "\n");
         }
         internal static void RemoveUser(int idToRemove)
         {
-            var file = new List<string>(File.ReadAllLines(@"C:\Users\jonte\Documents\GitHub\BiblioteksSystem\BibliotekSystem\BibliotekSystem\Data\Users.txt"));
+            var file = new List<string>(File.ReadAllLines(@"Users.txt"));
             file.RemoveAt(idToRemove);
-            File.WriteAllLines(@"C:\Users\jonte\Documents\GitHub\BiblioteksSystem\BibliotekSystem\BibliotekSystem\Data\Users.txt", file.ToArray());
+            File.WriteAllLines(@"Users.txt", file.ToArray());
         }
 
         internal static void ShowUsers()
         {
-
+            var file = new List<string>(File.ReadAllLines(@"Users.txt"));
+            foreach (var item in file)
+            {
+                Console.WriteLine(item);
+            }
         }
         
     }
