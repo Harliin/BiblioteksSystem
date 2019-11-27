@@ -74,7 +74,7 @@ namespace BibliotekSystem
                         string pn = Console.ReadLine();
                         Console.WriteLine("Ange lösenord, fyra siffror");
                         Console.Write("Ange lösenord:");
-                        string pw = UserPasswordChecker(Console.ReadLine());
+                        string pw = UserPasswordChecker();
                         UserClass user = new UserClass(pn, pw);
                         System.AddUser(user);
                         AdminUserMenu();
@@ -110,26 +110,25 @@ namespace BibliotekSystem
             ClearConsole();
 
         }
-        public string UserPasswordChecker(string pw)
+        public string UserPasswordChecker()
         {
             bool check = false;
-            string password = "";
+            string correctPassword = "";
+            int counter = 0;
             do
             {
-                if (pw.Length == 4)
+                Console.WriteLine("Ange lösenord");
+                string password = Console.ReadLine();
+
+                if (password.Length == 4)
                 {
-                    foreach (var item in pw)
+                    foreach (var item in password)
                     {
                         for (int i = 48; i < 58; i++)
-                        {
-                            if((int)item != i)
+                        {                           
+                            if (i == (int)item)
                             {
-                                Console.WriteLine("Använd endast siffror.");
-                                break;
-                            }
-                            else if (i == (int)item)
-                            {
-                                password += item;
+                                correctPassword += item;
                             }
                         }
                     }
@@ -141,8 +140,9 @@ namespace BibliotekSystem
                     Console.ReadKey();
 
                 }
-                return password;
             } while (check == false);
+            return correctPassword;
+
         }
         public void ClearConsole()
         {
