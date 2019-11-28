@@ -9,6 +9,7 @@ namespace BibliotekSystem
     {
         internal static void CheckoutUser()
         {
+            
             if (File.Exists(@"Users.txt"))
             {
                 int rowId = 1;

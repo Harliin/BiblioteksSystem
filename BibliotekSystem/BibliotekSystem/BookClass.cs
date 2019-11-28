@@ -18,7 +18,6 @@ namespace BibliotekSystem
             
         }
 
-
         //Metoder för att hantera Books text fil
         internal static void AddBook(BookClass book)
         {
@@ -50,7 +49,7 @@ namespace BibliotekSystem
         }
         internal static void ShowBooks()
         {
-            if (File.Exists(@"Books.txt"))
+            if (File.Exists(@"Books.txt") || File.Exists(@"DirtyBooks.txt"))
             {
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"Books.txt"));
@@ -58,6 +57,14 @@ namespace BibliotekSystem
                 {
                     Console.WriteLine($"Bok {rowId}: {item}");
                     rowId++;
+                }
+                Console.WriteLine($"\nSnuskböcker");
+                Console.WriteLine("____________\n");
+                int dirtyRowId = rowId;
+                var dirtyFile = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
+                foreach (var item in dirtyFile)
+                {
+                    Console.WriteLine($"Bok {dirtyRowId}: {item}");
                 }
             }
             else

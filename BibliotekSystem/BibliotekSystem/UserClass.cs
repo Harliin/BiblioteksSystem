@@ -8,8 +8,8 @@ namespace BibliotekSystem
     class UserClass
     {
         
-        public string PN { get; set; }
-        public string password { get; set; }
+        public string PN { get; private set; }
+        public string password { get; private set; }
 
         public int ID { get; set; }
         private static int _idCounter = 1;
@@ -20,8 +20,7 @@ namespace BibliotekSystem
             this.password = password;
 
             this.ID = _idCounter;
-            _idCounter++;
-            
+            _idCounter++;            
         }
 
         //Metoder för att hantera Users text fil
@@ -76,6 +75,35 @@ namespace BibliotekSystem
             {
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"Books.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Bok {rowId}: {item}");
+                    rowId++;
+                }
+                Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
+                int row = int.Parse(Console.ReadLine());
+                string tempBook = file[row - 1];
+                if (!File.Exists(@"ShoppingBasket.txt"))
+                {
+                    File.WriteAllText(@"ShoppingBasket.txt", "");
+                }
+                var loanList = new List<string>(File.ReadLines(@"ShoppingBasket.txt"));
+                loanList.Add(tempBook);
+
+                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+            }
+            else
+            {
+                Console.WriteLine("Finns inga böcker att låna!");
+                Console.ReadKey();
+            }
+        }
+        internal static void AddDirtyBookToUser()
+        {
+            if (File.Exists(@"DirtyBooks.txt"))
+            {
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
                 foreach (var item in file)
                 {
                     Console.WriteLine($"Bok {rowId}: {item}");
