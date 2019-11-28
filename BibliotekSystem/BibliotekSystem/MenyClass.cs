@@ -6,12 +6,12 @@ namespace BibliotekSystem
 {
     class MenyClass
     {
-        List<UserClass> userList = new List<UserClass>();
-        List<BookClass> bookList = new List<BookClass>();
 
         public void MainMenu()
         {
             ClearConsole();
+            Console.WriteLine("Välkommen till Biblioteket\n");
+            Console.WriteLine("Huvudmeny");
             Console.WriteLine("[1]Bibliotekarie\n[2]Lånetagare");
 
             char key = Console.ReadKey(true).KeyChar;
@@ -28,13 +28,17 @@ namespace BibliotekSystem
                         break;
                     }
                 default:
-                    break;
+                    {
+                        MainMenu();
+                        break;
+                    }
             }
         }
 
         public void AdminMenu()
         {
             ClearConsole();
+            Console.WriteLine("Bibliotekarie Meny\n");
             Console.WriteLine("[1]Hantera lånetagare\n[2]Hantera böcker\n[3]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
@@ -63,6 +67,7 @@ namespace BibliotekSystem
         public void AdminUserMenu()
         {
             ClearConsole();
+            Console.WriteLine("Bibliotekarie Lånetagare Meny\n");
             Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Visa låntagare\n[4]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
@@ -145,11 +150,55 @@ namespace BibliotekSystem
                         break;
                     }
             }
+            Console.WriteLine("Bibliotekarie Bok Meny\n");
         }
         public void UserMenu()
         {
             ClearConsole();
+            Console.WriteLine("Lånetagare Meny\n");
+            Console.WriteLine("[1]Låna bok\n[2]Lämna tillbaka bok\n[3]Se kundkorg\n[4]Checka ut böcker\n[5]Gå tillbaka");
+            char key = Console.ReadKey(true).KeyChar;
 
+            
+
+
+            switch (key)
+            {
+                case '1':
+                    {
+                        Console.WriteLine("Här är listan på tillgängliga böcker");
+                        Console.WriteLine("____________________________________");
+                        break;
+                    }
+                case '2':
+                    {
+                        Console.WriteLine("Vilken bok vill du lämna tillbaka?");
+                        Console.WriteLine("__________________________________");
+                        break;
+                    }
+                case '3':
+                    {
+                        Console.WriteLine("Dessa varor finns i din kundkorg");
+                        Console.WriteLine("________________________________");
+                        break;
+                    }
+                case '4':
+                    {
+                        Console.WriteLine("Bearbetar ditt lån...");
+                        System.Threading.Thread.Sleep(700);
+                        break;
+                    }
+                case '5':
+                    {
+                        MainMenu();
+                        break;
+                    }
+                default:
+                    {
+                        UserMenu();
+                        break;
+                    }
+            }
         }
         public string UserPasswordChecker()
         {
@@ -194,6 +243,7 @@ namespace BibliotekSystem
             return correctPassword;
 
         }
+
         public void ClearConsole()
         {
             Console.Clear();
