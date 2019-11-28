@@ -131,19 +131,15 @@ namespace BibliotekSystem
                 loanList.Add(tempBook);
 
                 File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
-
+            }
 
             else
             {
                 Console.WriteLine("Finns inga böcker att låna!");
                 Console.ReadKey();
             }
-            }
-            else
-            {
-                Console.WriteLine("Boklistan är tom!");
-            }
-            Console.ReadKey();
+            
+            
 
         }
     }

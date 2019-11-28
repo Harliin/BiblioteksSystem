@@ -22,7 +22,16 @@ namespace BibliotekSystem
             {
                 case '1':
                     {
-                        AdminMenu();
+                        if (CheckAdminPassword())//Password = "admin"
+                        {
+                            AdminMenu();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Fel lösenord!");
+                            Console.ReadKey();
+                            MainMenu();
+                        }
                         break;
                     }
                 case '2':
@@ -342,6 +351,19 @@ namespace BibliotekSystem
             } while (check == false);
             return correctPassword;
 
+        }
+        private bool CheckAdminPassword()
+        {
+            Console.Write("Skriv in admins lösenord: ");
+            string tempPassword = Console.ReadLine();
+            if (tempPassword == "admin")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void ClearConsole()

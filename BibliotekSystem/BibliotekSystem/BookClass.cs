@@ -46,7 +46,7 @@ namespace BibliotekSystem
         }
         internal static void ShowBooks()
         {
-            if (File.Exists(@"Books.txt") || File.Exists(@"DirtyBooks.txt"))
+            if (File.Exists(@"Books.txt"))
             {
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"Books.txt"));
@@ -55,19 +55,32 @@ namespace BibliotekSystem
                     Console.WriteLine($"Bok {rowId}: {item}");
                     rowId++;
                 }
-                Console.WriteLine($"\nSnuskböcker");
-                Console.WriteLine("____________\n");
-                int dirtyRowId = rowId;
+            }
+            else
+            {
+                Console.WriteLine("Vanliga bok listan är tom!");
+            }
+
+            Console.WriteLine($"\nSnuskböcker");
+            Console.WriteLine("____________\n");
+            if (File.Exists(@"DirtyBooks.txt"))
+            {
+                int dirtyRowId = 1;
                 var dirtyFile = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
                 foreach (var item in dirtyFile)
                 {
                     Console.WriteLine($"Bok {dirtyRowId}: {item}");
+                    dirtyRowId++;
                 }
             }
             else
             {
-                Console.WriteLine("Bok listan är tom!");
+                Console.WriteLine("Det finns inga snuskiga böcker!");
             }
+
+
+
+            
         }
     }
 }
