@@ -14,6 +14,8 @@ namespace BibliotekSystem
         {
             this.title = title;
             this.author = author;
+
+            
         }
 
 
@@ -26,6 +28,10 @@ namespace BibliotekSystem
 
         internal static void RemoveBook()
         {
+            if (!File.Exists(@"Books.txt"))
+            {
+                File.Create(@"Books.txt");
+            }
             int rowId = 1;
             var file = new List<string>(File.ReadAllLines(@"Books.txt"));
             foreach (var item in file)
@@ -40,6 +46,10 @@ namespace BibliotekSystem
         }
         internal static void ShowBooks()
         {
+            if (!File.Exists(@"Books.txt"))
+            {
+                File.Create(@"Books.txt");
+            }
             int rowId = 1;
             var file = new List<string>(File.ReadAllLines(@"Books.txt"));
             foreach (var item in file)

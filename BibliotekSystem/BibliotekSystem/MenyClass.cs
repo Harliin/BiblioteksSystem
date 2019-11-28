@@ -87,11 +87,14 @@ namespace BibliotekSystem
                 case '2':
                     {
                         UserClass.RemoveUser();
+                        AdminUserMenu();
                         break;
                     }
                 case '3':
                     {
                         UserClass.ShowUsers();
+                        Console.ReadKey();
+                        AdminUserMenu();
                         break;
                     }
                 case '4':

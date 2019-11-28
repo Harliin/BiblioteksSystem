@@ -21,6 +21,7 @@ namespace BibliotekSystem
 
             this.ID = _idCounter;
             _idCounter++;
+            
         }
 
         //Metoder för att hantera Users text fil
