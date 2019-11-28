@@ -6,12 +6,12 @@ namespace BibliotekSystem
 {
     class MenyClass
     {
-        List<UserClass> userList = new List<UserClass>();
-        List<BookClass> bookList = new List<BookClass>();
 
         public void MainMenu()
         {
             ClearConsole();
+            Console.WriteLine("Välkommen till Biblioteket\n");
+            Console.WriteLine("Huvudmeny");
             Console.WriteLine("[1]Bibliotekarie\n[2]Lånetagare");
 
             char key = Console.ReadKey(true).KeyChar;
@@ -28,13 +28,17 @@ namespace BibliotekSystem
                         break;
                     }
                 default:
-                    break;
+                    {
+                        MainMenu();
+                        break;
+                    }
             }
         }
 
         public void AdminMenu()
         {
             ClearConsole();
+            Console.WriteLine("Bibliotekarie Meny\n");
             Console.WriteLine("[1]Hantera lånetagare\n[2]Hantera böcker\n[3]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
@@ -63,6 +67,7 @@ namespace BibliotekSystem
         public void AdminUserMenu()
         {
             ClearConsole();
+            Console.WriteLine("Bibliotekarie Lånetagare Meny\n");
             Console.WriteLine("[1]Lägg till lånetagare\n[2]Ta bort lånetagare\n[3]Visa låntagare\n[4]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
@@ -104,10 +109,12 @@ namespace BibliotekSystem
         public void AdminBookMenu()
         {
             ClearConsole();
+            Console.WriteLine("Bibliotekarie Bok Meny\n");
         }
         public void UserMenu()
         {
             ClearConsole();
+            Console.WriteLine("Lånetagare Meny\n");
 
         }
         public string UserPasswordChecker()
@@ -153,6 +160,7 @@ namespace BibliotekSystem
             return correctPassword;
 
         }
+
         public void ClearConsole()
         {
             Console.Clear();
