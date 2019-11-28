@@ -75,18 +75,18 @@ namespace BibliotekSystem
 
                         string pw = UserPasswordChecker();
                         UserClass user = new UserClass(pn, pw);
-                        DataClass.AddUser(user);
+                        UserClass.AddUser(user);
                         AdminUserMenu();
                         break;
                     }
                 case '2':
                     {
-                        DataClass.RemoveUser();
+                        UserClass.RemoveUser();
                         break;
                     }
                 case '3':
                     {
-                        DataClass.ShowUsers();
+                        UserClass.ShowUsers();
                         break;
                     }
                 case '4':
@@ -104,6 +104,47 @@ namespace BibliotekSystem
         public void AdminBookMenu()
         {
             ClearConsole();
+            Console.WriteLine("[1]Lägg till bok\n[2]Ta bort bok\n[3]Visa böcker\n[4]Gå tillbaka");
+            char key = Console.ReadKey(true).KeyChar;
+
+            switch (key)
+            {
+                case '1':
+                    {
+                        Console.Write("Ange bok namn:");
+                        string bookName = Console.ReadLine();
+
+                        Console.Write("Ange författare: ");
+                        string bookAuthor = Console.ReadLine();
+                        BookClass book = new BookClass(bookName, bookAuthor);
+                        BookClass.AddBook(book);
+                        AdminBookMenu();
+                        break;
+                    }
+                case '2':
+                    {
+                        BookClass.RemoveBook();
+                        AdminBookMenu();
+                        break;
+                    }
+                case '3':
+                    {
+                        BookClass.ShowBooks();
+                        Console.ReadKey();
+                        AdminBookMenu();
+                        break;
+                    }
+                case '4':
+                    {
+                        AdminMenu();
+                        break;
+                    }
+                default:
+                    {
+                        AdminBookMenu();
+                        break;
+                    }
+            }
         }
         public void UserMenu()
         {
