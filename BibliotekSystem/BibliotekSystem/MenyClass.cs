@@ -195,9 +195,8 @@ namespace BibliotekSystem
                         Console.WriteLine("________\n");
                         Console.WriteLine("Här är listan på tillgängliga böcker");
                         Console.WriteLine("____________________________________");
-                        BookClass.ShowBooks();
                         UserClass.AddBookToUser();
-
+                        UserMenu();
                         break;
                     }
                 case '2':

@@ -72,18 +72,32 @@ namespace BibliotekSystem
         //Slut hantera users text fil
         internal static void AddBookToUser()
         {
-            int rowId = 1;
-            var file = new List<string>(File.ReadAllLines(@"Books.txt"));
-            foreach (var item in file)
+            if (File.Exists(@"Books.txt"))
             {
-                Console.WriteLine($"Bok {rowId}: {item}");
-                rowId++;
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"Books.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Bok {rowId}: {item}");
+                    rowId++;
+                }
+                Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
+                int row = int.Parse(Console.ReadLine());
+                string tempBook = file[row - 1];
+                if (!File.Exists(@"ShoppingBasket.txt"))
+                {
+                    File.WriteAllText(@"ShoppingBasket.txt", "");
+                }
+                var loanList = new List<string>(File.ReadLines(@"ShoppingBasket.txt"));
+                loanList.Add(tempBook);
+
+                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
             }
-            Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
-            int row = int.Parse(Console.ReadLine());
-            string tempBook = file[row - 1];
-            file.Add(tempBook);
-            File.WriteAllLines(@"UserLoans.txt", file.ToArray());
+            else
+            {
+                Console.WriteLine("Finns inga böcker att låna!");
+                Console.ReadKey();
+            }
         }
     }
 }
