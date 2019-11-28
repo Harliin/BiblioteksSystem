@@ -41,9 +41,25 @@ namespace BibliotekSystem
                     rowId++;
                 }
                 Console.Write("Vem vill du ta bort? Ange låntagarens nummer: ");
-                int row = int.Parse(Console.ReadLine());
-                file.RemoveAt(row - 1);
-                File.WriteAllLines(@"Users.txt", file.ToArray());
+                if(!int.TryParse(Console.ReadLine(), out int row))
+                {
+                    Console.WriteLine("Ange med siffror!");
+                    System.Threading.Thread.Sleep(800);
+                }
+                else
+                {
+                    try
+                    {
+                        file.RemoveAt(row - 1);
+                        File.WriteAllLines(@"Users.txt", file.ToArray());
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Finns ingen låntagare vid den positionen!");
+                        System.Threading.Thread.Sleep(800);
+                    }
+                    
+                }
             }
             else
             {
