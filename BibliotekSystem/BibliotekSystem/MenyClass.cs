@@ -25,6 +25,7 @@ namespace BibliotekSystem
                     }
                 case '2':
                     {
+                        UserMenu();
                         break;
                     }
                 default:
@@ -159,15 +160,15 @@ namespace BibliotekSystem
             Console.WriteLine("[1]Låna bok\n[2]Lämna tillbaka bok\n[3]Se kundkorg\n[4]Checka ut böcker\n[5]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
-            
-
-
             switch (key)
             {
                 case '1':
                     {
                         Console.WriteLine("Här är listan på tillgängliga böcker");
                         Console.WriteLine("____________________________________");
+                        BookClass.ShowBooks();
+                        UserClass.AddBookToUser();
+
                         break;
                     }
                 case '2':
