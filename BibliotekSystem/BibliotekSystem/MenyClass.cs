@@ -108,7 +108,46 @@ namespace BibliotekSystem
         public void UserMenu()
         {
             ClearConsole();
+            Console.WriteLine("[1]Låna bok\n[2]Lämna tillbaka bok\n[3]Se kundkorg\n[4]Checka ut böcker\n[5]Gå tillbaka");
+            char key = Console.ReadKey(true).KeyChar;
 
+            switch (key)
+            {
+                case '1':
+                    {
+                        Console.WriteLine("Här är listan på tillgängliga böcker");
+                        Console.WriteLine("____________________________________");
+                        break;
+                    }
+                case '2':
+                    {
+                        Console.WriteLine("Vilken bok vill du lämna tillbaka?");
+                        Console.WriteLine("__________________________________");
+                        break;
+                    }
+                case '3':
+                    {
+                        Console.WriteLine("Dessa varor finns i din kundkorg");
+                        Console.WriteLine("________________________________");
+                        break;
+                    }
+                case '4':
+                    {
+                        Console.WriteLine("Bearbetar ditt lån...");
+                        System.Threading.Thread.Sleep(700);
+                        break;
+                    }
+                case '5':
+                    {
+                        MainMenu();
+                        break;
+                    }
+                default:
+                    {
+                        UserMenu();
+                        break;
+                    }
+            }
         }
         public string UserPasswordChecker()
         {
