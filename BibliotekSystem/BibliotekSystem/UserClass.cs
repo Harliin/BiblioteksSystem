@@ -135,7 +135,7 @@ namespace BibliotekSystem
 
             else
             {
-                Console.WriteLine("Finns inga böcker att låna!");
+                Console.WriteLine("\nDin kundkorg är tom!");
                 Console.ReadKey();
             }
             

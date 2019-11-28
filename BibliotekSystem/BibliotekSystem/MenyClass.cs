@@ -22,6 +22,7 @@ namespace BibliotekSystem
             {
                 case '1':
                     {
+                        ClearConsole();
                         if (CheckAdminPassword())//Password = "admin"
                         {
                             AdminMenu();
@@ -354,7 +355,8 @@ namespace BibliotekSystem
         }
         private bool CheckAdminPassword()
         {
-            Console.Write("Skriv in admins lösenord: ");
+            Console.WriteLine("_________________________");
+            Console.Write("\nSkriv in admins lösenord: ");
             string tempPassword = Console.ReadLine();
             if (tempPassword == "admin")
             {
