@@ -21,6 +21,7 @@ namespace BibliotekSystem
 
             this.ID = _idCounter;
             _idCounter++;
+            
         }
 
         //Metoder för att hantera Users text fil
@@ -31,27 +32,41 @@ namespace BibliotekSystem
         }
         internal static void RemoveUser()
         {
-            int rowId = 1;
-            var file = new List<string>(File.ReadAllLines(@"Users.txt"));
-            foreach (var item in file)
+            if (File.Exists(@"Users.txt"))
             {
-                Console.WriteLine($"Lånetagare {rowId}: {item}");
-                rowId++;
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"Users.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Lånetagare {rowId}: {item}");
+                    rowId++;
+                }
+                Console.Write("Vem vill du ta bort? Ange låntagarens nummer: ");
+                int row = int.Parse(Console.ReadLine());
+                file.RemoveAt(row - 1);
+                File.WriteAllLines(@"Users.txt", file.ToArray());
             }
-            Console.Write("Vem vill du ta bort? Ange låntagarens nummer: ");
-            int row = int.Parse(Console.ReadLine());
-            file.RemoveAt(row - 1);
-            File.WriteAllLines(@"Users.txt", file.ToArray());
+            else
+            {
+                Console.WriteLine("Lånetagar listan är tom!");
+            }
         }
 
         internal static void ShowUsers()
         {
-            int rowId = 1;
-            var file = new List<string>(File.ReadAllLines(@"Users.txt"));
-            foreach (var item in file)
+            if (File.Exists(@"Users.txt"))
             {
-                Console.WriteLine($"Lånetagare {rowId}: {item}");
-                rowId++;
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"Users.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Lånetagare {rowId}: {item}");
+                    rowId++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Lånetagar listan är tom!");
             }
         }
         //Slut hantera users text fil

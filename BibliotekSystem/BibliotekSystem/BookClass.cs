@@ -14,6 +14,8 @@ namespace BibliotekSystem
         {
             this.title = title;
             this.author = author;
+
+            
         }
 
 
@@ -26,26 +28,41 @@ namespace BibliotekSystem
 
         internal static void RemoveBook()
         {
-            int rowId = 1;
-            var file = new List<string>(File.ReadAllLines(@"Books.txt"));
-            foreach (var item in file)
+            if (!File.Exists(@"Books.txt"))
             {
-                Console.WriteLine($"Bok {rowId}: {item}");
-                rowId++;
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"Books.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Bok {rowId}: {item}");
+                    rowId++;
+                }
+                Console.Write("Vilken bok vill du ta bort? Ange bokens nummer: ");
+                int row = int.Parse(Console.ReadLine());
+                file.RemoveAt(row - 1);
+                File.WriteAllLines(@"Books.txt", file.ToArray());
             }
-            Console.Write("Vilken bok vill du ta bort? Ange bokens nummer: ");
-            int row = int.Parse(Console.ReadLine());
-            file.RemoveAt(row - 1);
-            File.WriteAllLines(@"Books.txt", file.ToArray());
+            else
+            {
+                Console.WriteLine("Bok listan är tom!");
+            }
+            
         }
         internal static void ShowBooks()
         {
-            int rowId = 1;
-            var file = new List<string>(File.ReadAllLines(@"Books.txt"));
-            foreach (var item in file)
+            if (File.Exists(@"Books.txt"))
             {
-                Console.WriteLine($"Bok {rowId}: {item}");
-                rowId++;
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"Books.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Bok {rowId}: {item}");
+                    rowId++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Bok listan är tom!");
             }
         }
     }
