@@ -99,5 +99,25 @@ namespace BibliotekSystem
                 Console.ReadKey();
             }
         }
+
+        internal static void ShowUserBooks()
+        {
+            if (File.Exists(@"ShoppingBasket.txt"))
+            {
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"ShoppingBasket.txt"));
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Bok {rowId}: {item}");
+                    rowId++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Boklistan är tom!");
+            }
+            Console.ReadKey();
+
+        }
     }
 }
