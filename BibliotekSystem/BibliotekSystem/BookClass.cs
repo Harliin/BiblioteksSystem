@@ -14,8 +14,6 @@ namespace BibliotekSystem
         {
             this.title = title;
             this.author = author;
-
-            
         }
 
         //Metoder för att hantera Books text fil
@@ -45,7 +43,6 @@ namespace BibliotekSystem
             {
                 Console.WriteLine("Bok listan är tom!");
             }
-            
         }
         internal static void ShowBooks()
         {

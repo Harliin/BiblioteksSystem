@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace BibliotekSystem
 {
@@ -26,7 +27,18 @@ namespace BibliotekSystem
                     }
                 case '2':
                     {
-                        UserMenu();
+                        if (File.Exists(@"Users.txt"))
+                        {
+                            UserMenu();
+                        }
+                        else
+                        {
+                            ClearConsole();
+
+                            Console.WriteLine("\nDet finns inga inlagda lånetagare");
+                            System.Threading.Thread.Sleep(800);
+                            MainMenu();
+                        }
                         break;
                     }
                 default:
