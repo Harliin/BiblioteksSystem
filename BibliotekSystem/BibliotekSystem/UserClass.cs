@@ -98,17 +98,28 @@ namespace BibliotekSystem
                 Console.ReadKey();
             }
         }
+
         internal static void AddDirtyBookToUser()
         {
             if (File.Exists(@"DirtyBooks.txt"))
             {
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
+            }
+        }
+        internal static void ShowUserBooks()
+        {
+            if (File.Exists(@"ShoppingBasket.txt"))
+            {
+                int rowId = 1;
+                var file = new List<string>(File.ReadAllLines(@"ShoppingBasket.txt"));
+
                 foreach (var item in file)
                 {
                     Console.WriteLine($"Bok {rowId}: {item}");
                     rowId++;
                 }
+
                 Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
                 int row = int.Parse(Console.ReadLine());
                 string tempBook = file[row - 1];
@@ -120,12 +131,20 @@ namespace BibliotekSystem
                 loanList.Add(tempBook);
 
                 File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
-            }
+
+
             else
             {
                 Console.WriteLine("Finns inga böcker att låna!");
                 Console.ReadKey();
             }
+            }
+            else
+            {
+                Console.WriteLine("Boklistan är tom!");
+            }
+            Console.ReadKey();
+
         }
     }
 }

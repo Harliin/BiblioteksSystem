@@ -252,6 +252,8 @@ namespace BibliotekSystem
                         Console.WriteLine("________________\n");
                         Console.WriteLine("Dessa varor finns i din kundkorg");
                         Console.WriteLine("________________________________");
+                        UserClass.ShowUserBooks();
+                        UserMenu();
                         break;
                     }
                 case '5':
@@ -259,8 +261,19 @@ namespace BibliotekSystem
                         ClearConsole();
                         Console.WriteLine("Checkar ut böcker");
                         Console.WriteLine("_________________\n");
-                        Console.WriteLine("Bearbetar ditt lån...");
+                        (bool foundUser, string person) = Checkout.CheckoutUser();
+                        if (foundUser == true)
+                        {
+                            Console.WriteLine("Checkar ut...");
+                            Checkout.CompleteCheckout(person);
+                        }
+                        else
+                        {
+                            Console.ReadKey();
+                            UserMenu();
+                        }
                         System.Threading.Thread.Sleep(700);
+                        MainMenu();
                         break;
                     }
                 case '6':
