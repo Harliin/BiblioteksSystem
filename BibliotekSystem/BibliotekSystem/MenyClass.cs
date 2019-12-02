@@ -263,8 +263,9 @@ namespace BibliotekSystem
                         ClearConsole();
                         Console.WriteLine("Lämna tillbaka bok");
                         Console.WriteLine("__________________\n");
-                        Console.WriteLine("Vilken bok vill du lämna tillbaka?");
-                        Console.WriteLine("__________________________________");
+                        
+                        UserClass.ReturnBooks();
+                        UserMenu();
                         break;
                     }
                 case '4':
@@ -303,6 +304,7 @@ namespace BibliotekSystem
                         MainMenu();
                         break;
                     }
+
                 default:
                     {
                         UserMenu();
