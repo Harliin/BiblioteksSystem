@@ -25,7 +25,7 @@ namespace BibliotekSystem
 
         internal static void RemoveBook()
         {
-            if (!File.Exists(@"Books.txt"))
+            if (File.Exists(@"Books.txt"))
             {
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"Books.txt"));
@@ -42,6 +42,7 @@ namespace BibliotekSystem
             else
             {
                 Console.WriteLine("Bok listan är tom!");
+                System.Threading.Thread.Sleep(800);
             }
         }
         internal static void ShowBooks()

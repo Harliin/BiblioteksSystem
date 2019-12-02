@@ -76,7 +76,7 @@ namespace BibliotekSystem
 
         internal static void RemoveDirtyBook()
         {
-            if (!File.Exists(@"DirtyBooks.txt"))
+            if (File.Exists(@"DirtyBooks.txt"))
             {
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
