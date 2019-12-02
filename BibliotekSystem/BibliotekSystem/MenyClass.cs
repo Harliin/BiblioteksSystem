@@ -149,7 +149,7 @@ namespace BibliotekSystem
             ClearConsole();
             Console.WriteLine("Bibliotekarie Bok Meny");
             Console.WriteLine("______________________\n");
-            Console.WriteLine("[1]Lägg till bok\n[2]Lägg till snuskbok\n[3]Ta bort snuskbok\n[4]Ta bort bok\n[5]Visa böcker\n[6]Gå tillbaka");
+            Console.WriteLine("[1]Lägg till bok\n[2]Ta bort bok\n[3]Lägg till snuskbok\n[4]Ta bort snuskbok\n[5]Visa böcker\n[6]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
@@ -171,7 +171,17 @@ namespace BibliotekSystem
                     }
                 case '2':
                     {
+                        ClearConsole();
+                        Console.WriteLine("Ta bort bok");
+                        Console.WriteLine("___________\n");
+                        BookClass.RemoveBook();
+                        AdminBookMenu();
 
+                        
+                        break;
+                    }
+                case '3':
+                    {
                         ClearConsole();
                         Console.WriteLine("Lägg till snuskbok");
                         Console.WriteLine("_____________\n");
@@ -182,15 +192,6 @@ namespace BibliotekSystem
                         string bookAuthor = Console.ReadLine();
                         DirtyBookClass book = new DirtyBookClass(bookName, bookAuthor);
                         DirtyBookClass.AddDirtyBook(book);
-                        AdminBookMenu();
-                        break;
-                    }
-                case '3':
-                    {
-                        ClearConsole();
-                        Console.WriteLine("Ta bort bok");
-                        Console.WriteLine("___________\n");
-                        BookClass.RemoveBook();
                         AdminBookMenu();
                         break;
                     }
