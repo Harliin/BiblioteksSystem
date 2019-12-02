@@ -252,7 +252,7 @@ namespace BibliotekSystem
                         bool loginComplete = DirtyBookClass.DirtyLogin();
                         if (loginComplete == true) 
                         {
-                            Console.Clear();
+                            
                             UserClass.AddDirtyBookToUser();
                             
                             

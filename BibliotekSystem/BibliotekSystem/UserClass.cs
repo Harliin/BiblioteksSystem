@@ -137,7 +137,7 @@ namespace BibliotekSystem
         {
             if (File.Exists(@"DirtyBooks.txt"))
             {
-                
+                Console.Clear();
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
                 Console.WriteLine("Låna snuskbok");
@@ -152,7 +152,7 @@ namespace BibliotekSystem
                 
                 Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
                 int row = int.Parse(Console.ReadLine());
-                string tempBook ="hej";
+                string tempBook ="default";
                 try { tempBook = file[row - 1]; }
 
                 catch  (Exception e) 
