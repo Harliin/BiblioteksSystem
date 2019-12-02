@@ -49,12 +49,21 @@ namespace BibliotekSystem
 
         internal static void CompleteCheckout(string person)
         {
-
-            var tempLoans = new List<string>();
-            tempLoans.Add(person);
-            tempLoans.Add(File.ReadAllText(@"ShoppingBasket.txt"));
-            File.AppendAllLines(@"CurrentLoans.txt", tempLoans.ToArray());
-            File.Delete(@"ShoppingBasket.txt");
+            if (!File.Exists(@"CurrentLoans.txt"))
+            {
+                File.WriteAllText(@"CurrentLoans.txt", "");
+            }
+            if (!File.Exists(@"ShoppingBasket.txt"))
+            {
+                Console.WriteLine("Du har inte valt några böcker!");
+            }
+            else
+            {
+                var tempLoans = new List<string>(File.ReadAllLines(@"CurrentLoans.txt"));
+                tempLoans.Add(person + "," + File.ReadAllText(@"ShoppingBasket.txt"));
+                File.WriteAllLines(@"CurrentLoans.txt", tempLoans.ToArray());
+                File.Delete(@"ShoppingBasket.txt");
+            }
         }
     }
 }

@@ -92,6 +92,8 @@ namespace BibliotekSystem
         {
             if (File.Exists(@"Books.txt"))
             {
+                bool didWork = false;
+                string tempBook = "";
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"Books.txt"));
                 foreach (var item in file)
@@ -100,16 +102,29 @@ namespace BibliotekSystem
                     rowId++;
                 }
                 Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
-                int row = int.Parse(Console.ReadLine());
-                string tempBook = file[row - 1];
-                if (!File.Exists(@"ShoppingBasket.txt"))
+                try
                 {
-                    File.WriteAllText(@"ShoppingBasket.txt", "");
+                    int row = int.Parse(Console.ReadLine());
+                    tempBook = file[row - 1];
+                    didWork = true;
                 }
-                var loanList = new List<string>(File.ReadLines(@"ShoppingBasket.txt"));
-                loanList.Add(tempBook);
+                catch (Exception)
+                {
+                    Console.WriteLine("Finns ingen bok med det nummret!");
+                    System.Threading.Thread.Sleep(800);
+                }
+                if (didWork)
+                {
+                    if (!File.Exists(@"ShoppingBasket.txt"))
+                    {
+                        File.WriteAllText(@"ShoppingBasket.txt", string.Empty);
+                    }
+                    var loanList = new List<string>();
+                    loanList.Add(tempBook + "," + File.ReadAllText(@"ShoppingBasket.txt"));
 
-                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                    File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                }
+                
             }
             else
             {
@@ -173,6 +188,7 @@ namespace BibliotekSystem
 
                 foreach (var item in file)
                 {
+
                     Console.WriteLine($"Bok {rowId}: {item}");
                     rowId++;
                 }
@@ -183,11 +199,18 @@ namespace BibliotekSystem
                 if (!File.Exists(@"ShoppingBasket.txt"))
                 {
                     File.WriteAllText(@"ShoppingBasket.txt", "");
-                }
-                var loanList = new List<string>(File.ReadLines(@"ShoppingBasket.txt"));
-                loanList.Add(tempBook);
 
-                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                    string[] array = item.Split(",");
+                    for (int i = 0; i < array.Length - 1; i++)
+                    {
+                        Console.WriteLine($"Bok {rowId}: {array[i]}, Författare: {array[i+1]}");
+                        i++;
+                        rowId++;
+                    }
+                    
+
+                }
+                Console.ReadKey();
             }
 
             else
@@ -195,14 +218,70 @@ namespace BibliotekSystem
                 Console.WriteLine("\nDin kundkorg är tom!");
                 Console.ReadKey();
             }
+        }
 
+        internal static void ReturnBooks()
+        {
+            if (File.Exists(@"CurrentLoans.txt"))
+            {
+                var file = new List<string>(File.ReadAllLines(@"CurrentLoans.txt"));
 
+                Console.Write("Skriv in ditt personnummer:");
+                string tempPN = Console.ReadLine();
 
+                Console.Write("Skriv in lösenordet: ");
+                string tempPW = Console.ReadLine();
+                for (int i = 0; i < file.Count; i++)
+                {
+                    if (file[i] == "")
+                    {
+                        continue;
+                    }
+                    else if (file[i].Substring(0, 11) == tempPN)
+                    {
+                        if (file[i].Substring(12, 4) == tempPW)
+                        {
+                            bool loop = true;
+                            do
+                            {
+                                Console.WriteLine("Vill du returnera dina böcker?\n[1] Ja\n[2] Nej");
+                                char answer = Console.ReadKey(true).KeyChar;
+                                switch (answer)
+                                {
+                                    case '1':
+                                        {
+                                            file[i] = string.Empty;
+                                            Console.WriteLine("Dina böcker är returnerade!");
+
+                                            System.Threading.Thread.Sleep(800);
+                                            loop = false;
+                                            break;
+                                        }
+                                    case '2':
+                                        {
+                                            loop = false;
+                                            break;
+                                        }
+                                    default:
+                                        break;
+                                }
+                            } while (loop);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Fel Användarnamn eller lösenord!");
+                            
+                        }
+                    }
+                }
+                File.WriteAllLines(@"CurrentLoans.txt", file.ToArray());
+            }
+            else
+            {
+                Console.WriteLine("finns inga registrerade lånetagare");
+            }
         }
 
     }
-
-    
-
 }
 
