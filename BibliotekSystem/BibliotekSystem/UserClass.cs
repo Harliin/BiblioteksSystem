@@ -188,37 +188,25 @@ namespace BibliotekSystem
 
                 foreach (var item in file)
                 {
-
-                    Console.WriteLine($"Bok {rowId}: {item}");
-                    rowId++;
-                }
-                Console.Clear();
-                Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
-                int row = int.Parse(Console.ReadLine());
-                string tempBook = file[row - 1];
-                if (!File.Exists(@"ShoppingBasket.txt"))
-                {
-                    File.WriteAllText(@"ShoppingBasket.txt", "");
-
                     string[] array = item.Split(",");
                     for (int i = 0; i < array.Length - 1; i++)
                     {
-                        Console.WriteLine($"Bok {rowId}: {array[i]}, Författare: {array[i+1]}");
+                        Console.WriteLine($"Bok {rowId}: {array[i]}, Författare: {array[i + 1]}");
                         i++;
                         rowId++;
                     }
-                    
+
 
                 }
                 Console.ReadKey();
             }
-
             else
             {
                 Console.WriteLine("\nDin kundkorg är tom!");
                 Console.ReadKey();
             }
         }
+    
 
         internal static void ReturnBooks()
         {
