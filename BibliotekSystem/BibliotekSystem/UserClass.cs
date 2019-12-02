@@ -89,6 +89,8 @@ namespace BibliotekSystem
         {
             if (File.Exists(@"Books.txt"))
             {
+                bool didWork = false;
+                string tempBook = "";
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"Books.txt"));
                 foreach (var item in file)
@@ -97,17 +99,29 @@ namespace BibliotekSystem
                     rowId++;
                 }
                 Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
-                int row = int.Parse(Console.ReadLine());
-                string tempBook = file[row - 1];
-                if (!File.Exists(@"ShoppingBasket.txt"))
+                try
                 {
-                    File.WriteAllText(@"ShoppingBasket.txt", string.Empty);
+                    int row = int.Parse(Console.ReadLine());
+                    tempBook = file[row - 1];
+                    didWork = true;
                 }
-                var loanList = new List<string>();
-                loanList.Add(tempBook + "," + File.ReadAllText(@"ShoppingBasket.txt"));
-                
+                catch (Exception)
+                {
+                    Console.WriteLine("Finns ingen bok med det nummret!");
+                    System.Threading.Thread.Sleep(800);
+                }
+                if (didWork)
+                {
+                    if (!File.Exists(@"ShoppingBasket.txt"))
+                    {
+                        File.WriteAllText(@"ShoppingBasket.txt", string.Empty);
+                    }
+                    var loanList = new List<string>();
+                    loanList.Add(tempBook + "," + File.ReadAllText(@"ShoppingBasket.txt"));
 
-                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                    File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                }
+                
             }
             else
             {
@@ -133,8 +147,15 @@ namespace BibliotekSystem
 
                 foreach (var item in file)
                 {
-                    Console.WriteLine($"Bok {rowId}: {item}");
-                    rowId++;
+                    string[] array = item.Split(",");
+                    for (int i = 0; i < array.Length - 1; i++)
+                    {
+                        Console.WriteLine($"Bok {rowId}: {array[i]}, Författare: {array[i+1]}");
+                        i++;
+                        rowId++;
+                    }
+                    
+                    
                 }
                 Console.ReadKey();
             }
