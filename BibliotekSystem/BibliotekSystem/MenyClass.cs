@@ -14,7 +14,7 @@ namespace BibliotekSystem
             Console.WriteLine("Välkommen till Biblioteket\n");
             Console.WriteLine("Huvudmeny");
             Console.WriteLine("_________\n");
-            Console.WriteLine("[1]Bibliotekarie\n[2]Lånetagare");
+            Console.WriteLine("[1]Bibliotekarie\n[2]Lånetagare\n[3]Avsluta");
 
             char key = Console.ReadKey(true).KeyChar;
 
@@ -49,6 +49,10 @@ namespace BibliotekSystem
                             System.Threading.Thread.Sleep(800);
                             MainMenu();
                         }
+                        break;
+                    }
+                case '3':
+                    {
                         break;
                     }
                 default:
@@ -379,10 +383,15 @@ namespace BibliotekSystem
                 ClearConsole();
                 Console.WriteLine("Lägg till lånetagare");
                 Console.WriteLine("____________________\n");
-                Console.Write("Ange personnummer :");
+                Console.WriteLine("Tryck \"n\" för att gå tillbaka");
+                Console.Write("Ange personnummer : ");
                 string pn = Console.ReadLine();
 
-                if (pn.Length < 11 || pn.Length > 11)
+                if (pn == "n")
+                {
+                    AdminUserMenu();
+                }
+                else if (pn.Length < 11 || pn.Length > 11)
                 {
                     Console.WriteLine("Personnumret måste vara 11 karaktärer");
                     Console.ReadKey();
@@ -394,6 +403,7 @@ namespace BibliotekSystem
                     Console.ReadKey();
                     continue;
                 }
+                
 
                 return pn;
             }
