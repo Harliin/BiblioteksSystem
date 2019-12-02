@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace BibliotekSystem
 {
     class UserClass
     {
-        
+
         public string PN { get; private set; }
         public string password { get; private set; }
 
@@ -20,7 +21,7 @@ namespace BibliotekSystem
             this.password = password;
 
             this.ID = _idCounter;
-            _idCounter++;            
+            _idCounter++;
         }
 
         //Metoder för att hantera Users text fil
@@ -41,7 +42,7 @@ namespace BibliotekSystem
                     rowId++;
                 }
                 Console.Write("Vem vill du ta bort? Ange låntagarens nummer: ");
-                if(!int.TryParse(Console.ReadLine(), out int row))
+                if (!int.TryParse(Console.ReadLine(), out int row))
                 {
                     Console.WriteLine("Ange med siffror!");
                     System.Threading.Thread.Sleep(800);
@@ -58,12 +59,13 @@ namespace BibliotekSystem
                         Console.WriteLine("Finns ingen låntagare vid den positionen!");
                         System.Threading.Thread.Sleep(800);
                     }
-                    
+
                 }
             }
             else
             {
                 Console.WriteLine("Lånetagar listan är tom!");
+                Thread.Sleep(900);
             }
         }
 
@@ -82,6 +84,7 @@ namespace BibliotekSystem
             else
             {
                 Console.WriteLine("Lånetagar listan är tom!");
+                Thread.Sleep(900);
             }
         }
         //Slut hantera users text fil
@@ -119,10 +122,48 @@ namespace BibliotekSystem
         {
             if (File.Exists(@"DirtyBooks.txt"))
             {
+                
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
+                Console.WriteLine("Låna snuskbok");
+                Console.WriteLine("________\n");
+                Console.WriteLine("Här är listan på tillgängliga böcker");
+                Console.WriteLine("____________________________________");
+                foreach (var item in file)
+                {
+                    Console.WriteLine($"Snuskbok {rowId}: {item}");
+                    rowId++;
+                }
+                
+                Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
+                int row = int.Parse(Console.ReadLine());
+                string tempBook ="hej";
+                try { tempBook = file[row - 1]; }
+
+                catch  (Exception e) 
+                {
+                    AddDirtyBookToUser();
+                }
+                
+                if (!File.Exists(@"ShoppingBasket.txt"))
+                {
+                    File.WriteAllText(@"ShoppingBasket.txt", "");
+                }
+                var loanList = new List<string>(File.ReadLines(@"ShoppingBasket.txt"));
+                loanList.Add(tempBook);
+
+                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                Console.WriteLine("Boken är nu tillagd i kundkorgen, checka ut för att slutföra lånet.");
+                Thread.Sleep(1400);
             }
+            else
+            {
+                Console.WriteLine("Finns inga böcker att låna!");
+                Console.ReadKey();
+            }
+
         }
+
         internal static void ShowUserBooks()
         {
             if (File.Exists(@"ShoppingBasket.txt"))
@@ -135,7 +176,7 @@ namespace BibliotekSystem
                     Console.WriteLine($"Bok {rowId}: {item}");
                     rowId++;
                 }
-
+                Console.Clear();
                 Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
                 int row = int.Parse(Console.ReadLine());
                 string tempBook = file[row - 1];
@@ -154,9 +195,14 @@ namespace BibliotekSystem
                 Console.WriteLine("\nDin kundkorg är tom!");
                 Console.ReadKey();
             }
-            
-            
+
+
 
         }
+
     }
+
+    
+
 }
+

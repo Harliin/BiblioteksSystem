@@ -160,7 +160,7 @@ namespace BibliotekSystem
                         Console.WriteLine("Lägg till bok");
                         Console.WriteLine("_____________\n");
                         Console.Write("Ange bok namn:");
-                        string bookName = Console.ReadLine();
+                        string bookName = Console.ReadLine(); 
 
                         Console.Write("Ange författare: ");
                         string bookAuthor = Console.ReadLine();
@@ -249,14 +249,20 @@ namespace BibliotekSystem
                 case '2':
                     {
                         ClearConsole();
-                        DirtyBookClass.DirtyLogin();
-                        Console.WriteLine("Låna snuskbok");
-                        Console.WriteLine("________\n");
-                        Console.WriteLine("Här är listan på tillgängliga böcker");
-                        Console.WriteLine("____________________________________");
-                        UserClass.AddDirtyBookToUser();
-                        UserMenu();
-                        break;
+                        bool loginComplete = DirtyBookClass.DirtyLogin();
+                        if (loginComplete == true) 
+                        {
+                            Console.Clear();
+                            UserClass.AddDirtyBookToUser();
+                            
+                            
+                            //DirtyBookClass.ShowDirtyBooks();
+                            
+                            UserMenu();
+                            break;
+                        }
+                        else break;
+                        
                     }
                 case '3':
                     {

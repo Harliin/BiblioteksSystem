@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace BibliotekSystem
 {
@@ -30,7 +31,8 @@ namespace BibliotekSystem
                         }
                         else
                         {
-                            Console.WriteLine("Fel Användarnman eller lösenord!");
+                            Console.WriteLine("Fel användarnamn eller lösenord!");
+                            Thread.Sleep(1500);
                             return (false, string.Empty);
                         }
                             
