@@ -240,7 +240,7 @@ namespace BibliotekSystem
                                         {
                                             file[i] = string.Empty;
                                             Console.WriteLine("Dina böcker är returnerade!");
-
+                                            File.WriteAllLines(@"CurrentLoans.txt", file.ToArray());
                                             System.Threading.Thread.Sleep(800);
                                             loop = false;
                                             break;
@@ -258,15 +258,16 @@ namespace BibliotekSystem
                         else
                         {
                             Console.WriteLine("Fel Användarnamn eller lösenord!");
-                            
+                            System.Threading.Thread.Sleep(800);
                         }
                     }
                 }
-                File.WriteAllLines(@"CurrentLoans.txt", file.ToArray());
+                
             }
             else
             {
                 Console.WriteLine("finns inga registrerade lånetagare");
+                System.Threading.Thread.Sleep(800);
             }
         }
 

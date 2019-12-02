@@ -101,11 +101,7 @@ namespace BibliotekSystem
             {
                 case '1':
                     {
-                        ClearConsole();
-                        Console.WriteLine("Lägg till lånetagare");
-                        Console.WriteLine("____________________\n");
-                        Console.Write("Ange personnummer :");
-                        string pn = Console.ReadLine();
+                        string pn = CheckUserPN();
 
                         string pw = UserPasswordChecker();
                         UserClass user = new UserClass(pn, pw);
@@ -375,6 +371,33 @@ namespace BibliotekSystem
             {
                 return false;
             }
+        }
+        public string CheckUserPN()
+        {
+            while (true)
+            {
+                ClearConsole();
+                Console.WriteLine("Lägg till lånetagare");
+                Console.WriteLine("____________________\n");
+                Console.Write("Ange personnummer :");
+                string pn = Console.ReadLine();
+
+                if (pn.Length < 11 || pn.Length > 11)
+                {
+                    Console.WriteLine("Personnumret måste vara 11 karaktärer");
+                    Console.ReadKey();
+                    continue;
+                }
+                else if (pn.Substring(6, 1) != "-")
+                {
+                    Console.WriteLine("Personnumret måste ha ett bindestreck!");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                return pn;
+            }
+
         }
 
         public void ClearConsole()
