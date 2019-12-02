@@ -49,7 +49,7 @@ namespace BibliotekSystem
         {
             if (!File.Exists(@"CurrentLoans.txt"))
             {
-                File.WriteAllText(@"CurrentLoans.txt", string.Empty);
+                File.WriteAllText(@"CurrentLoans.txt", "");
             }
             if (!File.Exists(@"ShoppingBasket.txt"))
             {
