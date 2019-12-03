@@ -88,6 +88,7 @@ namespace BibliotekSystem
             }
         }
         //Slut hantera users text fil
+        //metod för att lägga till böcker till lånetagare
         internal static void AddBookToUser()
         {
             if (File.Exists(@"Books.txt"))
@@ -123,6 +124,8 @@ namespace BibliotekSystem
                     loanList.Add(tempBook + "," + File.ReadAllText(@"ShoppingBasket.txt"));
 
                     File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                    Console.WriteLine("\nBoken är nu tillagd i kundkorgen, checka ut för att slutföra lånet.");
+                    Thread.Sleep(1400);
                 }
                 
             }
@@ -138,6 +141,7 @@ namespace BibliotekSystem
             if (File.Exists(@"DirtyBooks.txt"))
             {
                 Console.Clear();
+                bool didWork = false;
                 int rowId = 1;
                 var file = new List<string>(File.ReadAllLines(@"DirtyBooks.txt"));
                 Console.WriteLine("Låna snuskbok");
@@ -151,25 +155,34 @@ namespace BibliotekSystem
                 }
                 
                 Console.Write("Vilken bok vill du låna? Ange bokens nummer: ");
-                int row = int.Parse(Console.ReadLine());
+                
                 string tempBook ="default";
-                try { tempBook = file[row - 1]; }
+                try 
+                {
+                    int row = int.Parse(Console.ReadLine());
+                    tempBook = file[row - 1];
+                    didWork = true;
+                }
 
-                catch  (Exception e) 
+                catch  (Exception) 
                 {
                     AddDirtyBookToUser();
                 }
-                
-                if (!File.Exists(@"ShoppingBasket.txt"))
-                {
-                    File.WriteAllText(@"ShoppingBasket.txt", "");
-                }
-                var loanList = new List<string>(File.ReadLines(@"ShoppingBasket.txt"));
-                loanList.Add(tempBook);
 
-                File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
-                Console.WriteLine("Boken är nu tillagd i kundkorgen, checka ut för att slutföra lånet.");
-                Thread.Sleep(1400);
+                if (didWork)
+                {
+                    if (!File.Exists(@"ShoppingBasket.txt"))
+                    {
+                        File.WriteAllText(@"ShoppingBasket.txt", "");
+                    }
+                    var loanList = new List<string>();
+                    loanList.Add(tempBook + "," + File.ReadAllText(@"ShoppingBasket.txt"));
+
+                    File.WriteAllLines(@"ShoppingBasket.txt", loanList.ToArray());
+                    Console.WriteLine("\nBoken är nu tillagd i kundkorgen, checka ut för att slutföra lånet.");
+                    Thread.Sleep(1400);
+                }
+                
             }
             else
             {
@@ -178,8 +191,9 @@ namespace BibliotekSystem
             }
 
         }
-
-        internal static void ShowUserBooks()
+        //Slut lägga till böcker till lånetagare
+        //Visar Kundkorgen
+        internal static void ShowShoppingBasket()
         {
             if (File.Exists(@"ShoppingBasket.txt"))
             {
@@ -267,6 +281,38 @@ namespace BibliotekSystem
             else
             {
                 Console.WriteLine("finns inga registrerade lånetagare");
+                System.Threading.Thread.Sleep(800);
+            }
+        }
+
+        internal static void ShowCurrentLoans()
+        {
+            if (File.Exists(@"CurrentLoans.txt"))
+            {
+                
+                var file = new List<string>(File.ReadAllLines(@"CurrentLoans.txt"));
+
+                foreach (var item in file)
+                {
+                    if (item == "")
+                    {
+                        continue;
+                    }
+                    int rowId = 1;
+                    string[] array = item.Split(",");
+                    Console.WriteLine($"\nLånetagare: {array[0]}");
+                    for (int i = 2; i < array.Length - 1; i++)
+                    {
+                        Console.WriteLine($"\tBok {rowId}: {array[i]}, Författare: {array[i + 1]}");
+                        i++;
+                        rowId++;
+                    }
+                }
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Det finns inga pågående lån!");
                 System.Threading.Thread.Sleep(800);
             }
         }

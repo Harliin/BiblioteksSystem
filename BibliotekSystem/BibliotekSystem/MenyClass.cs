@@ -68,7 +68,7 @@ namespace BibliotekSystem
             ClearConsole();
             Console.WriteLine("Bibliotekarie Meny");
             Console.WriteLine("__________________\n");
-            Console.WriteLine("[1]Hantera lånetagare\n[2]Hantera böcker\n[3]Gå tillbaka");
+            Console.WriteLine("[1]Hantera lånetagare\n[2]Hantera böcker\n[3]Visa aktiva lån\n[4]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
             switch (key)
@@ -84,6 +84,12 @@ namespace BibliotekSystem
                         break;
                     }
                 case '3':
+                    {
+                        ClearConsole();
+                        UserClass.ShowCurrentLoans();
+                        break;
+                    }
+                case '4':
                     {
                         MainMenu();
                         break;
@@ -282,7 +288,7 @@ namespace BibliotekSystem
                         Console.WriteLine("________________\n");
                         Console.WriteLine("Dessa varor finns i din kundkorg");
                         Console.WriteLine("________________________________");
-                        UserClass.ShowUserBooks();
+                        UserClass.ShowShoppingBasket();
                         UserMenu();
                         break;
                     }
