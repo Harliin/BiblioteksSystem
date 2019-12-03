@@ -22,8 +22,9 @@ namespace BibliotekSystem
             Console.WriteLine("Ange ditt personnummer, 11 siffror: ");
             
             string input = Console.ReadLine();
-           // string lastFourDigits = input.Substring(0, 6); 901216-2814
-            if (Constrains.CheckUser(input).Item1 == true)
+            // string lastFourDigits = input.Substring(0, 6); 901216-2814
+            (bool didWork, string message) = Constrains.CheckUser(input);
+            if (didWork)
             {
                 Console.WriteLine("Ange ditt lösenord: ");
                 int.TryParse(Console.ReadLine(), out int passwordResult);
@@ -38,7 +39,7 @@ namespace BibliotekSystem
                         {
                             if (person.Substring(12) == passwordInput)
                             {
-                                Console.WriteLine("Du har åldern inne! ");
+                                Console.WriteLine("Du har åldern inne!");
                                 Thread.Sleep(900);
                                 return (true);
                             }
@@ -49,19 +50,24 @@ namespace BibliotekSystem
                                 return false;
                             }
                         }
-                        
+
+
                         // kolla så att lösenord och pnr ligger på samma rad
                     }
-                    return false;
-                    
+                    Console.WriteLine("Fel användarnamn eller lösenord");
+                    Thread.Sleep(900);
+
                 }
-                else Console.WriteLine("Bok listan är tom!");
-                Thread.Sleep(900);
+                else
+                {
+                    Console.WriteLine("Bok listan är tom!");
+                    Thread.Sleep(900);
+                }
                 return false;
             }
             else
             {
-                Console.WriteLine("Du är för ung för att hyra sådana böcker");
+                Console.WriteLine(message);
                 Thread.Sleep(900);
                 return (false);
             }

@@ -171,6 +171,10 @@ namespace BibliotekSystem
 
                         Console.Write("Ange författare: ");
                         string bookAuthor = Console.ReadLine();
+                        if (bookName == "" || bookAuthor == "")
+                        {
+
+                        }
                         BookClass book = new BookClass(bookName, bookAuthor);
                         BookClass.AddBook(book);
                         AdminBookMenu();
@@ -262,14 +266,17 @@ namespace BibliotekSystem
                         {
                             
                             UserClass.AddDirtyBookToUser();
-                            
-                            
+
                             //DirtyBookClass.ShowDirtyBooks();
                             
                             UserMenu();
                             break;
                         }
-                        else break;
+                        else
+                        {
+                            UserMenu();
+                            break;
+                        }
                         
                     }
                 case '3':
