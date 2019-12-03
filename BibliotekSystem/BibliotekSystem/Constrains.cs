@@ -8,12 +8,15 @@ namespace BibliotekSystem
     {
         public static (bool, string) CheckUser(string PN)//Ska kolla usern om den uppfyller krav för ålder m.m.
         {
-            string year = PN.Substring(0, 2);
-            string month = PN.Substring(2, 2);
-            string days = PN.Substring(4, 2);
+            string year;
+            string month;
+            string days;
             TimeSpan ageOk;
             try
             {
+                year = PN.Substring(0, 2);
+                month = PN.Substring(2, 2);
+                days = PN.Substring(4, 2);
                 DateTime checkAge = DateTime.Parse($"{year}/{month}/{days}");
                 ageOk = DateTime.Now.Subtract(checkAge);
             }
