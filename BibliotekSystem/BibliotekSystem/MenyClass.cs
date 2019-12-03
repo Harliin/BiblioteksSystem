@@ -173,7 +173,9 @@ namespace BibliotekSystem
                         string bookAuthor = Console.ReadLine();
                         if (bookName == "" || bookAuthor == "")
                         {
-
+                            Console.WriteLine("\nBok namn och författare måste innehålla någonting!");
+                            System.Threading.Thread.Sleep(1000);
+                            AdminBookMenu();
                         }
                         BookClass book = new BookClass(bookName, bookAuthor);
                         BookClass.AddBook(book);
@@ -336,10 +338,12 @@ namespace BibliotekSystem
         public string UserPasswordChecker()
         {
             bool check = false;
-            string correctPassword = null;
-            int counter = 0;
+            string correctPassword;
+            int counter;
             do
             {
+                counter = 0;
+                correctPassword = null;
                 Console.Write("Ange lösenord, fyra siffror!: ");
                 string password = Console.ReadLine();
 
