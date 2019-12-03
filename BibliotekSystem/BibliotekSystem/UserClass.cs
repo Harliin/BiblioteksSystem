@@ -11,7 +11,6 @@ namespace BibliotekSystem
 
         public string PN { get; private set; }
         public string password { get; private set; }
-
         public int ID { get; set; }
         private static int _idCounter = 1;
 
@@ -88,6 +87,7 @@ namespace BibliotekSystem
             }
         }
         //Slut hantera users text fil
+
         //metod för att lägga till böcker till lånetagare
         internal static void AddBookToUser()
         {
@@ -135,7 +135,6 @@ namespace BibliotekSystem
                 Console.ReadKey();
             }
         }
-
         internal static void AddDirtyBookToUser()
         {
             if (File.Exists(@"DirtyBooks.txt"))
@@ -192,6 +191,7 @@ namespace BibliotekSystem
 
         }
         //Slut lägga till böcker till lånetagare
+
         //Visar Kundkorgen
         internal static void ShowShoppingBasket()
         {
@@ -221,7 +221,7 @@ namespace BibliotekSystem
             }
         }
     
-
+        //Returnerar en låntagares böcker
         internal static void ReturnBooks()
         {
             if (File.Exists(@"CurrentLoans.txt"))
@@ -285,6 +285,7 @@ namespace BibliotekSystem
             }
         }
 
+        //visar pågående lån
         internal static void ShowCurrentLoans()
         {
             if (File.Exists(@"CurrentLoans.txt"))
