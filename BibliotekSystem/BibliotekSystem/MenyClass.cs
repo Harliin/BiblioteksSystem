@@ -87,6 +87,7 @@ namespace BibliotekSystem
                     {
                         ClearConsole();
                         UserClass.ShowCurrentLoans();
+                        AdminMenu();
                         break;
                     }
                 case '4':
@@ -237,7 +238,7 @@ namespace BibliotekSystem
             ClearConsole();
             Console.WriteLine("Lånetagare Meny");
             Console.WriteLine("_______________\n"); ;
-            Console.WriteLine("[1]Låna bok\n[2]Låna snuskbok\n[3]Lämna tillbaka bok\n[4]Se kundkorg\n[5]Checka ut böcker\n[6]Gå tillbaka");
+            Console.WriteLine("[1]Låna bok\n[2]Låna snuskbok\n[3]Lämna tillbaka böcker\n[4]Se kundkorg\n[5]Checka ut böcker\n[6]Gå tillbaka");
             char key = Console.ReadKey(true).KeyChar;
 
             switch (key)

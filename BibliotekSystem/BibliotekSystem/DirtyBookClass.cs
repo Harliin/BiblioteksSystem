@@ -49,9 +49,10 @@ namespace BibliotekSystem
                                 return false;
                             }
                         }
-                        else return (false);
+                        
                         // kolla så att lösenord och pnr ligger på samma rad
                     }
+                    return false;
                     
                 }
                 else Console.WriteLine("Bok listan är tom!");
