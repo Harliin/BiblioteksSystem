@@ -399,7 +399,7 @@ namespace BibliotekSystem
                 Console.WriteLine("____________________\n");
                 Console.WriteLine("Tryck \"n\" för att gå tillbaka");
                 Console.Write("Ange personnummer : ");
-                string pn = Console.ReadLine();
+                string pn = Console.ReadLine();               
 
                 if (pn == "n")
                 {
@@ -414,6 +414,24 @@ namespace BibliotekSystem
                 else if (pn.Substring(6, 1) != "-")
                 {
                     Console.WriteLine("Personnumret måste ha ett bindestreck!");
+                    Console.ReadKey();
+                    continue;
+                }
+                try
+                {
+                    int year = int.Parse(pn.Substring(0, 2));
+                    int month = int.Parse(pn.Substring(2, 2));
+                    int days = int.Parse(pn.Substring(4, 2));
+                    if (month < 0 || month > 12 || days < 0 || days > 31)
+                    {
+                        Console.WriteLine("Felaktigt format på personnummer");
+                        Console.ReadKey();
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Felaktig inmatning");
                     Console.ReadKey();
                     continue;
                 }
